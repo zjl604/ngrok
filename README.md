@@ -38,25 +38,24 @@ ln -s /usr/local/src/ngrok/bin/ngrokd /usr/bin/ngrokd
 编译客户端：
 GOOS=linux GOARCH=amd64 make release-client
 
-
 nohup ngrokd -tlsKey="/usr/local/src/ngrok/assets/server/tls/214349979280240.key" -tlsCrt="/usr/local/src/ngrok/assets/serv
 er/tls/214349979280240.crt" -domain="startdt.net" -httpAddr=":80" -httpsAddr=":443" -tunnelAddr=":10000" &
 
-nohup ngrokd -tlsKey="/usr/local/src/ngrok/assets/server/tls/214349979280240.key" -tlsCrt="/usr/local/src/ngrok/assets/serv
-er/tls/214349979280240.crt" -domain="startdt.net" -httpAddr=":80" -httpsAddr=":443" -tunnelAddr=":10000" &
+# ngrok 客户端部署
+1.上传编译好的 bin 文件  
+2.配置文件
+```
+server_addr: "startdt.net:10000"
+trust_host_root_certs: true
 
-nohup ngrokd -tlsKey="/usr/local/src/ngrok/assets/server/tls/214349979280240.key" -tlsCrt="/usr/local/src/ngrok/assets/serv
-er/tls/214349979280240.crt" -domain="startdt.net" -httpAddr=":80" -httpsAddr=":443" -tunnelAddr=":10000" &
-
-nohup ngrokd -tlsKey="/usr/local/src/ngrok/assets/server/tls/214349979280240.key" -tlsCrt="/usr/local/src/ngrok/assets/serv
-er/tls/214349979280240.crt" -domain="startdt.net" -httpAddr=":80" -httpsAddr=":443" -tunnelAddr=":10000" &
-
-nohup ngrokd -tlsKey="/usr/local/src/ngrok/assets/server/tls/214349979280240.key" -tlsCrt="/usr/local/src/ngrok/assets/serv
-er/tls/214349979280240.crt" -domain="startdt.net" -httpAddr=":80" -httpsAddr=":443" -tunnelAddr=":10000" &
-
-nohup ngrokd -tlsKey="/usr/local/src/ngrok/assets/server/tls/214349979280240.key" -tlsCrt="/usr/local/src/ngrok/assets/serv
-er/tls/214349979280240.crt" -domain="startdt.net" -httpAddr=":80" -httpsAddr=":443" -tunnelAddr=":10000" &
-
-nohup ngrokd -tlsKey="/usr/local/src/ngrok/assets/server/tls/214349979280240.key" -tlsCrt="/usr/local/src/ngrok/assets/serv
-er/tls/214349979280240.crt" -domain="startdt.net" -httpAddr=":80" -httpsAddr=":443" -tunnelAddr=":10000" &
+tunnels:
+    ssh:
+        remote_port: 10086
+        proto:
+            tcp: "192.168.0.220:2222"
+    api:
+        subdomain: localserver
+        proto:
+            https: "192.168.0.220:8001"
+ ```
 
